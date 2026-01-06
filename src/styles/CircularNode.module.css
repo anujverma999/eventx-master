@@ -1,0 +1,27 @@
+.circle {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  font-weight: 700;
+  color: white;
+  border: 3px solid rgba(0,0,0,0.15);
+  cursor: pointer;
+  user-select: none;
+}
+
+/* Color variants */
+.receiver {
+  background: #22c55e; /* Green */
+}
+
+.processor {
+  background: #f97316; /* Orange */
+}
+
+.sender {
+  background: #3b82f6; /* Blue */
+}

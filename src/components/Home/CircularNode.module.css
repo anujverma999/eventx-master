@@ -1,0 +1,97 @@
+.wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+/* Node circle */
+.circle {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  color: white;
+  font-size: 20px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.receiver {
+  background: #16a34a;
+}
+
+.processor {
+  background: #dc2626;
+}
+
+.sender {
+  background: #2563eb;
+}
+
+/* Floating settings button */
+.settingsBtn {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: none;
+  background: #fff;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.settingsBtn:hover {
+  background: #f2f2f2;
+}
+
+/* Apple-style dropdown */
+.dropdown {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: -10px;
+  right: -90px;
+
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+
+  border-radius: 5px;
+  box-shadow: 0px 6px 18px rgba(0, 0, 0, 0.15);
+  z-index: 999;
+  animation: fadeIn 0.18s ease;
+  overflow: hidden;
+}
+
+.menuItem {
+  display: flex;
+  padding: 5px 7px;
+  cursor: pointer;
+  font-size: 12px;
+  align-self: flex-start;
+  color: #111;
+  width: 100%;
+  /* border-radius: 8px; */
+  overflow: hidden;
+}
+
+.menuItem:hover {
+  background: rgba(0, 0, 0, 0.07);
+  color: #2d50ff;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
