@@ -1,0 +1,10 @@
+{
+    "project":{
+        "id": "12345",
+        "name": "Media Processing Project",
+        "owner_id": "uuid-qwa-sd-asd",
+        "deployment_target": "docker_swarm/k8s",
+        "createdAt": "2026-01-01T09:00:00Z",
+        "tier": "enterprise"
+    }
+}

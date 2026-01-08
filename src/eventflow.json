@@ -1,0 +1,171 @@
+{
+  "eventflow": {
+    "metadata": {
+      "project_id": "12345",
+      "eventflow_id": "wf_67890",
+      "name": "Video Processing Pipeline",
+      "status": "active",
+      "version": "1.0.0",
+      "createdBy": "anuj.verma",
+      "createdAt": "2026-01-05T10:30:00Z",
+      "description": "Receive stream, process them, and send results"
+    },
+    "nodes": [
+      {
+        "id": "node_receiver_1",
+        "type": "receiver",
+        "label": "Image Upload Receiver",
+        "position": { "x": 100, "y": 200 },
+
+        "minion": {
+          "image": "irepo/tcg/eventx/hls-receiver:1.5",
+          "type": "STREAM-MPEGTS",
+          "replicas": 2,
+          "resources" : {
+            "cpu":{
+              "min" : "100m",
+              "max" : "500m"
+            },
+            "memory":{
+              "min" : "128Mi",
+              "max" : "1Gi"
+            }
+          },
+
+          "artifacts": [
+            {
+              "id": "config_uuid",
+              "type": "CONFIG",
+              "language": "yaml",
+              "content": "BASE64_ENCODED_STRING",
+              "checksum": "sha256:98af3...",
+              "updatedAt": "2026-01-05T10:40:00Z"
+            },
+            {
+              "id": "rules_uuid",
+              "type": "RULES",
+              "language": "python",
+              "content": "BASE64_ENCODED_STRING",
+              "checksum": "sha256:98af3...",
+              "updatedAt": "2026-01-05T10:40:00Z"
+            }
+          ]
+        }
+      },
+      {
+        "id": "node_processor_1",
+        "type": "processor",
+        "label": "Image Resizer",
+        "position": {
+          "x": 420,
+          "y": 180
+        },
+
+        "minion": {
+          "image": "irepo/tcg/eventx/relay:2.0",
+          "name": "image-resizer",
+          "replicas": 2,
+          "limits": {
+            "cpu": "250m",
+            "memory": "256Mi"
+          },
+          "requests": {
+            "cpu": "100m",
+            "memory": "128Mi"
+          },
+          "version": "2.1.0",
+
+          "artifacts": [
+            {
+              "id": "config_uuid",
+              "type": "CONFIG",
+              "language": "yaml",
+              "content": "BASE64_ENCODED_STRING",
+              "checksum": "sha256:98af3...",
+              "updatedAt": "2026-01-05T10:40:00Z"
+            },
+            {
+              "id": "rules_uuid",
+              "type": "RULES",
+              "language": "python",
+              "content": "BASE64_ENCODED_STRING",
+              "checksum": "sha256:98af3...",
+              "updatedAt": "2026-01-05T10:40:00Z"
+            }
+          ],
+
+          "resources": {
+            "cpu": "500m",
+            "memory": "512Mi",
+            "gpu": false
+          }
+        }
+      },
+      {
+        "id": "node_sender_1",
+        "type": "sender",
+        "label": "S3 Uploader",
+        "position": { "x": 820, "y": 200 },
+
+        "minion": {
+          "image": "irepo/tcg/eventx/s3-sender:3.0.2",
+          "name": "s3-sender",
+          "version": "3.0.2",
+
+          "replicas": 2,
+          "limits": {
+            "cpu": "250m",
+            "memory": "256Mi"
+          },
+          "requests": {
+            "cpu": "100m",
+            "memory": "128Mi"
+          },
+
+          "artifacts": [
+            {
+              "id": "config_uuid",
+              "type": "CONFIG",
+              "language": "yaml",
+              "content": "BASE64_ENCODED_STRING",
+              "checksum": "sha256:98af3...",
+              "updatedAt": "2026-01-05T10:40:00Z"
+            },
+            {
+              "id": "rules_uuid",
+              "type": "RULES",
+              "language": "python",
+              "content": "BASE64_ENCODED_STRING",
+              "checksum": "sha256:98af3...",
+              "updatedAt": "2026-01-05T10:40:00Z"
+            }
+          ]
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_1",
+        "source": "node_receiver_1",
+        "target": "node_processor_1",
+        "metadata": {
+          "datatype": "json"
+        }
+      },
+      {
+        "id": "edge_2",
+        "source": "node_processor_1",
+        "target": "node_sender_1",
+        "metadata": {
+          "datatype": "json"
+        }
+      }
+    ],
+    "runtime-data": {
+      "health": {
+        "lastChecked": "2026-01-05T11:00:00Z",
+        "status": "healthy"
+      }
+    }
+  }
+}
